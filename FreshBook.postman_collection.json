@@ -6,6 +6,59 @@
 	},
 	"item": [
 		{
+			"name": "PostAuthorization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.freshbooks.com/auth/oauth/token?client_id=333da6e038ac667d0f537e3cc6925dfa15be72b4774165044fb4d8dae0d4c877&redirect_uri=https://bharathtestapp.com/redirect&client_secret=1b7017a66272d3f61876064186a179013d15192239163657e6c3904713b5e1e1&code=e7e343fa8455f524e94cb73be14710637b4e0968d108a422e416d048ca985eed&grant_type=authorization_code",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"auth",
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "333da6e038ac667d0f537e3cc6925dfa15be72b4774165044fb4d8dae0d4c877"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://bharathtestapp.com/redirect"
+						},
+						{
+							"key": "client_secret",
+							"value": "1b7017a66272d3f61876064186a179013d15192239163657e6c3904713b5e1e1"
+						},
+						{
+							"key": "code",
+							"value": "e7e343fa8455f524e94cb73be14710637b4e0968d108a422e416d048ca985eed"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "CreateTimeEntry",
 			"event": [
 				{
