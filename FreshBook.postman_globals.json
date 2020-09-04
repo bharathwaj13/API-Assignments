@@ -1,0 +1,84 @@
+{
+	"id": "146e52f0-fd32-4814-8e58-8a3c0f4d5eb7",
+	"values": [
+		{
+			"key": "Name",
+			"value": "Bharath",
+			"enabled": true
+		},
+		{
+			"key": "Env",
+			"value": "Automation",
+			"enabled": true
+		},
+		{
+			"key": "variable_key",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "sysid",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "shortDesc",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "key",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "approval",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "assignedto",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "category",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Freshbook_timeEntryID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "FreshBook_accountID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Freshbook_estimateID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Freshbook_country",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Freshbook_createDate",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Freshbook_businessID",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2020-09-04T10:31:06.960Z",
+	"_postman_exported_using": "Postman/7.30.1"
+}

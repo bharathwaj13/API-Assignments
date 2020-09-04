@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "3250c387-029b-41b2-91b2-6a06cc1ee213",
+		"name": "FreshBook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateTimeEntry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d55d990-d475-4258-91e7-d33c67e90cb5",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var resp= pm.response.json();\r",
+							"console.log(resp);\r",
+							"\r",
+							"//Get the TimeEntry ID from the response and Print in Console\r",
+							"var timeEntryID=resp.time_entry.id;\r",
+							"console.log(timeEntryID);\r",
+							"\r",
+							"//Assign it to a Global Variable\r",
+							"pm.globals.set(\"Freshbook_timeEntryID\",timeEntryID);\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"time_entry\": {\r\n        \"is_logged\": true,\r\n        \"duration\": 7200,\r\n        \"note\": \"Stuff\",\r\n        \"started_at\": \"2020-09-03T20:00:00.000Z\",\r\n        \"client_id\": \"96191\",\r\n        \"project_id\": \"4898119\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.freshbooks.com/timetracking/business/{{Freshbook_businessID}}/time_entries",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"timetracking",
+						"business",
+						"{{Freshbook_businessID}}",
+						"time_entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List TimeEntries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd615a97-11b4-42c9-8bf5-076186bba6d2",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var response=pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"//Assert if our created TimeEntryID is present\r",
+							"for(var i=0;i<response.time_entries.length;i++)\r",
+							"{\r",
+							"    if(response.time_entries[i].id==pm.globals.get(\"Freshbook_timeEntryID\"))\r",
+							"    {\r",
+							"        pm.expect(response.time_entries[i].id).is.to.equal(pm.globals.get(\"Freshbook_timeEntryID\"));\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.freshbooks.com/timetracking/business/{{Freshbook_businessID}}/time_entries",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"timetracking",
+						"business",
+						"{{Freshbook_businessID}}",
+						"time_entries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get TimeEntry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02695ce6-f3bc-4a68-9749-021f66970852",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var response=pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"//Assert if our created TimeEntryID is present\r",
+							"pm.expect(response.time_entry.id).is.to.equal(pm.globals.get(\"Freshbook_timeEntryID\"));\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.freshbooks.com/timetracking/business/{{Freshbook_businessID}}/time_entries/{{Freshbook_timeEntryID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"timetracking",
+						"business",
+						"{{Freshbook_businessID}}",
+						"time_entries",
+						"{{Freshbook_timeEntryID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update TimeEntry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "349ca6ae-1db9-4570-8dca-855ae4ec3ee2",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var response=pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"//Assert if our created TimeEntryID is present\r",
+							"pm.expect(response.time_entry.id).is.to.equal(pm.globals.get(\"Freshbook_timeEntryID\"));\r",
+							"\r",
+							"var request=JSON.parse(pm.request.body.raw);\r",
+							"//Assert if note is updated Correctly\r",
+							"pm.expect(response.time_entry.note).is.to.equal(request.time_entry.note);\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"time_entry\": {\r\n      \"is_logged\": true,\r\n      \"duration\": 600,\r\n      \"note\": \"Updated Note by Bharath\",\r\n      \"started_at\": \"2020-09-03T18:10:28.000Z\",\r\n      \"timer\": {\r\n          \"id\": \"2936\"\r\n      },\r\n      \"client_id\": \"96191\",\r\n      \"project_id\": \"4898119\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.freshbooks.com/timetracking/business/{{Freshbook_businessID}}/time_entries/{{Freshbook_timeEntryID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"timetracking",
+						"business",
+						"{{Freshbook_businessID}}",
+						"time_entries",
+						"{{Freshbook_timeEntryID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete TimeEntry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0ce542f-1509-4678-838f-aa077c761572",
+						"exec": [
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.freshbooks.com/timetracking/business/{{Freshbook_businessID}}/time_entries/{{Freshbook_timeEntryID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"timetracking",
+						"business",
+						"{{Freshbook_businessID}}",
+						"time_entries",
+						"{{Freshbook_timeEntryID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateSingleLineEstimate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a06dbf47-5002-46e1-8b64-face9f7a72df",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var resp= pm.response.json();\r",
+							"console.log(resp);\r",
+							"\r",
+							"//Get the Estimate ID from the response and Print in Console\r",
+							"var estimateID=resp.response.result.estimate.id;\r",
+							"console.log(estimateID);\r",
+							"\r",
+							"//Assign it to a Global Variable\r",
+							"pm.globals.set(\"Freshbook_estimateID\",estimateID);\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"estimate\": {\r\n    \"email\": \"bharath@example.com\",\r\n    \"customerid\": 96191,\r\n    \"create_date\": \"2020-09-04\",\r\n    \"lines\": [\r\n      {\r\n        \"type\": 0,\r\n        \"description\": \"\",\r\n        \"taxName1\": \"\",\r\n        \"taxAmount1\": 0,\r\n        \"name\": \"Paperwork\",\r\n        \"qty\": 1,\r\n        \"taxName2\": \"\",\r\n        \"taxAmount2\": 0,\r\n        \"unit_cost\": {\r\n            \"amount\": \"5000.00\",\r\n            \"code\": \"USD\"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.freshbooks.com/accounting/account/{{FreshBook_accountID}}/estimates/estimates",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"accounting",
+						"account",
+						"{{FreshBook_accountID}}",
+						"estimates",
+						"estimates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Estimate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04f9f34d-ef32-4d84-9864-ff20d5b4f7a4",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var response=pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"var request=JSON.parse(pm.request.body.raw);\r",
+							"\r",
+							"\r",
+							"//Store the Updated create Date Value in Global Variable\r",
+							"pm.globals.set(\"Freshbook_createDate\",request.estimate.create_date);\r",
+							"\r",
+							"//Store the Updated Country Value in Global Variable\r",
+							"pm.globals.set(\"Freshbook_country\",request.estimate.country);\r",
+							"\r",
+							"//Assert if create_date is updated Correctly\r",
+							"pm.expect(response.response.result.estimate.create_date).is.to.equal(request.estimate.create_date);\r",
+							"\r",
+							"//Assert if country is updated Correctly\r",
+							"pm.expect(response.response.result.estimate.country).is.to.equal(request.estimate.country);\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"estimate\": {\r\n     \"customerid\": 96191,\r\n     \"create_date\": \"2016-04-04\",\r\n     \"country\": \"India\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.freshbooks.com/accounting/account/{{FreshBook_accountID}}/estimates/estimates/{{Freshbook_estimateID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"accounting",
+						"account",
+						"{{FreshBook_accountID}}",
+						"estimates",
+						"estimates",
+						"{{Freshbook_estimateID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Estimate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cac3463-2ff0-4683-8dce-302e3251cfbe",
+						"exec": [
+							"//Get the Response in JSON Format and Print in Console\r",
+							"var response=pm.response.json();\r",
+							"console.log(response);\r",
+							"\r",
+							"//Assert if create_date is updated Correctly\r",
+							"pm.expect(response.response.result.estimate.create_date).is.to.equal(response.response.result.estimate.create_date);\r",
+							"\r",
+							"//Assert if country is updated Correctly\r",
+							"pm.expect(response.response.result.estimate.country).is.to.equal(response.response.result.estimate.country);\r",
+							"\r",
+							"//Assert Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.freshbooks.com/accounting/account/{{FreshBook_accountID}}/estimates/estimates/{{Freshbook_estimateID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"freshbooks",
+						"com"
+					],
+					"path": [
+						"accounting",
+						"account",
+						"{{FreshBook_accountID}}",
+						"estimates",
+						"estimates",
+						"{{Freshbook_estimateID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "f5eb6442c1adfad6c464485cbb7d7d0af38890fa36b8537d9dc732b86e3bb60d",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b0cdbc48-b227-4a19-bbd3-d6ba8f34f14a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a4245695-30b9-49e9-a5dd-4782f3a1011f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
